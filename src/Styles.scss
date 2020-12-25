@@ -1,3 +1,106 @@
+$header-color: #0077b6;
+$header-height: 60px;
+$header-fontsize: 26px;
+
+$sidenav-color: #1b2638;
+$sidenav-hover-color: #2a3339;
+$sidenav-subcolor: #2a3c47;
+$sidenav-hover-subcolor: #344651;
+$sidenav-width: 260px;
+$sidenav-button-height: 10px;
+$sidenav-fontsize: 16px;
+$sidenav-subfontsize: 14px;
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-user-drag: none;
+}
+
 body {
   background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: $header-height 1fr;
+  grid-template-columns: $sidenav-width 1fr;
+
+  > #header {
+    background-color: $header-color;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+
+    > h1 {
+      color: #ffffff;
+      font-size: $header-fontsize;
+      margin: 0;
+      user-select: none;
+    }
+
+    > button {
+      background-color: transparent;
+      color: #ffffff;
+      padding: 0 20px;
+      height: 100%;
+      border: none;
+      outline: none;
+
+      &:hover {
+        background-color: blue;
+      }
+    }
+  }
+
+  > #sidenav {
+    background-color: $sidenav-color;
+    overflow: scroll;
+
+    > button,
+    > div > button {
+      background-color: $sidenav-color;
+      border: none;
+
+      display: block;
+      width: 100%;
+      padding: $sidenav-button-height 0;
+      padding-left: 20px;
+
+      color: #ffffff;
+      font-size: $sidenav-fontsize;
+      text-align: left;
+
+      &:hover {
+        background-color: $sidenav-hover-color;
+        cursor: pointer;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    > div > div > a {
+      background-color: $sidenav-subcolor;
+
+      display: block;
+      padding: $sidenav-button-height 0;
+      padding-left: 40px;
+
+      color: #ffffff;
+      font-size: $sidenav-subfontsize;
+      text-decoration: none;
+
+      &:hover {
+        background-color: $sidenav-hover-subcolor;
+      }
+    }
+  }
 }
