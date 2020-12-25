@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Dashboard (): React.Element {
+function Dashboard (): JSX.Element {
   return (
     <h1>Dashboard</h1>
   )

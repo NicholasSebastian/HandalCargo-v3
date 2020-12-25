@@ -1,13 +1,26 @@
+/* eslint-disable padded-blocks */
+/* eslint-disable no-trailing-spaces */
 import React, { useState } from 'react'
 import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { remote } from 'electron'
 
 import Dashboard from '../pages/Dashboard'
 import SeaFreight from '../pages/SeaFreight'
+import AirCargo from '../pages/AirCargo'
 
 const { dialog } = remote
 
 function App (): JSX.Element {
+  
+  const Header = () => {
+    return (
+      <header id="header">
+        <h1>Handal Cargo</h1>
+        <button>username</button>
+      </header>
+    )
+  }
+  
   const Sidenav = () => {
     const [selected, setSelected] = useState<number | null>(null)
 
@@ -19,7 +32,7 @@ function App (): JSX.Element {
           </button>
           <div style={{ display: selected === 0 ? 'block' : 'none' }}>
             <Link to="/seafreight">Sea Freight</Link>
-            <Link to="/">Air Cargo</Link>
+            <Link to="/aircargo">Air Cargo</Link>
             <Link to="/">Invoice Entry</Link>
             <Link to="/">Payment</Link>
           </div>
@@ -87,15 +100,15 @@ function App (): JSX.Element {
 
   return (
     <Router>
-      <header id="header">
-        <h1>Handal Cargo</h1>
-        <button>username</button>
-      </header>
-      <Sidenav />
-      <Switch>
-        <Route path="/" exact component={ Dashboard } />
-        <Route path="/seafreight" component={ SeaFreight } />
-      </Switch>
+      <div id="main">
+        <Header />
+        <Sidenav />
+        <Switch>
+          <Route path="/" exact component={ Dashboard } />
+          <Route path="/seafreight" component={ SeaFreight } />
+          <Route path="/aircargo" component={ AirCargo } />
+        </Switch>
+      </div>
     </Router>
   )
 }
