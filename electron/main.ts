@@ -1,17 +1,18 @@
+/* eslint-disable curly */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable quotes */
 /* eslint-disable no-unused-expressions */
 import { app, BrowserWindow, ipcMain } from 'electron'
-import * as mysql from 'mysql'
+import mariadb from 'mariadb'
 
 import '@babel/polyfill'
 import * as path from 'path'
 import * as url from 'url'
 
 let mainWindow: Electron.BrowserWindow | null
-let connection: mysql.Connection
+let connection: mariadb.Connection
 
-function createWindow () {
+app.on('ready', () => {
   mainWindow = new BrowserWindow({
     width: 400,
     height: 300,
@@ -37,28 +38,32 @@ function createWindow () {
   mainWindow.on('closed', () => {
     mainWindow = null
   })
-}
+})
+
+app.allowRendererProcessReuse = true
 
 ipcMain.on('login', async (event, username, password) => {
-  connection = mysql.createConnection({
+  mariadb.createConnection({
     host: '101.50.1.10',
     port: 3306,
+    database: 'handalcargo',
     user: `dhicom_${username}`,
     password
   })
-
-  connection.connect(error => {
-    if (error) {
-      event.returnValue = false
-    } else {
+    .then(newConnection => {
       mainWindow?.setSize(1280, 720)
       mainWindow?.setResizable(true)
       mainWindow?.center()
-      event.returnValue = true
       ipcMain.removeAllListeners('login')
-    }
-  })
+      connection = newConnection
+      event.reply('logged-in', 0)
+    })
+    .catch((error) => {
+      if (error.code === 'ER_ACCESS_DENIED_ERROR' || error.code === 'ER_DBACCESS_DENIED_ERROR') 
+        event.reply('logged-in', 1)
+      else if (error.code === 'ECONNREFUSED') 
+        event.reply('logged-in', 2)
+      else 
+        event.reply('logged-in', error.message)
+    })
 })
-
-app.on('ready', createWindow)
-app.allowRendererProcessReuse = true

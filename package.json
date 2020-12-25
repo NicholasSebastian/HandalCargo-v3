@@ -1,7 +1,7 @@
 {
-  "name": "electron-react-typescript",
+  "name": "handal-cargo",
   "version": "1.0.0",
-  "description": "An Electron boilerplate including TypeScript, React, Jest and ESLint.",
+  "description": "Handal Cargo proprietary ERP software.",
   "main": "./dist/main.js",
   "scripts": {
     "dev": "npm-run-all -p dev:react electron:serve",
@@ -17,7 +17,7 @@
     "package:dist": "electron-builder --dir"
   },
   "keywords": [],
-  "author": "Nicholas Sebastian + Diego Fernandes",
+  "author": "Nicholas Sebastian + Jacky Richie Bahary",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -31,7 +31,6 @@
     "@testing-library/jest-dom": "^5.11.0",
     "@testing-library/react": "^10.4.3",
     "@types/electron-devtools-installer": "^2.2.0",
-    "@types/mysql": "^2.15.16",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.6",
     "@types/react-router-dom": "^5.1.6",
@@ -71,7 +70,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
-    "mysql": "^2.18.1",
+    "mariadb": "^2.5.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0"

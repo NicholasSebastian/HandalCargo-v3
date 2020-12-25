@@ -1,15 +1,52 @@
+/* eslint-disable curly */
 /* eslint-disable no-trailing-spaces */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ipcRenderer, remote } from 'electron'
 
 import App from './Layout'
+import LoadAnim from './LoadAnim'
 
 const { dialog } = remote
 
 function Login (): JSX.Element {
-  const [loggedIn, setLoggedIn] = useState<boolean>(false)
+  useEffect(() => {
+    ipcRenderer.on('logged-in', (event, status) => {
+      switch (status) {
+        case 0:
+          setView(<App/>)
+          ipcRenderer.removeAllListeners('logged-in')
+          break
+        case 1:
+          setView(<Auth/>)
+          dialog.showMessageBox({
+            message: 'Invalid Login credentials',
+            detail: 'Incorrect username or password.'
+          })
+          break
+        case 2:
+          dialog.showMessageBox({
+            message: 'Connection Refused',
+            detail: 'There was a problem connecting to the database server.'
+          })
+          remote.getCurrentWindow().close()
+          break
+        default:
+          dialog.showMessageBox({
+            message: 'Fatal Error occured',
+            detail: status
+          })
+          remote.getCurrentWindow().close()
+          break
+      }
+    })
+  }, [])
 
-  const Login = (): JSX.Element => {
+  const Loading = (): JSX.Element => 
+    <div className="center">
+      <LoadAnim/>
+    </div>
+
+  const Auth = (): JSX.Element => {
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     
@@ -22,25 +59,22 @@ function Login (): JSX.Element {
             placeholder="Username"
             onChange={e => setUsername(e.target.value)} />
           <input 
-            type="text" 
+            type="password" 
             placeholder="Password"
             onChange={e => setPassword(e.target.value)} />
           <button onClick={() => {
-            const valid = ipcRenderer.sendSync('login', username, password)
-            if (valid) setLoggedIn(true)
-            else {
-              dialog.showMessageBox({
-                message: 'Invalid Login credentials',
-                detail: 'Incorrect username or password.'
-              })
-            }
-          }}>Login</button>
+            setView(<Loading/>)
+            ipcRenderer.send('login', username, password)
+          }}>
+            Login
+          </button>
         </div>
       </div>
     )
   }
 
-  return loggedIn ? <App/> : <Login/>
+  const [view, setView] = useState<JSX.Element>(<Auth/>)
+  return view
 }
 
 export default Login

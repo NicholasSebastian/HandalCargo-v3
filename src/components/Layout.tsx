@@ -7,6 +7,8 @@ import { remote } from 'electron'
 import Dashboard from '../pages/Dashboard'
 import SeaFreight from '../pages/SeaFreight'
 import AirCargo from '../pages/AirCargo'
+import Customers from '../pages/Customers'
+import CustomerGroups from '../pages/CustomerGroups'
 
 const { dialog } = remote
 
@@ -42,7 +44,7 @@ function App (): JSX.Element {
             Master
           </button>
           <div style={{ display: selected === 1 ? 'block' : 'none' }}>
-            <Link to="/">Customers</Link>
+            <Link to="/customers">Customers</Link>
             <Link to="/">Staff</Link>
           </div>
         </div>
@@ -51,7 +53,7 @@ function App (): JSX.Element {
             References
           </button>
           <div style={{ display: selected === 2 ? 'block' : 'none' }}>
-            <Link to="/">Customer Groups</Link>
+            <Link to="/customer-groups">Customer Groups</Link>
             <Link to="/">Shippers</Link>
             <Link to="/">Routes</Link>
             <Link to="/">Handlers</Link>
@@ -107,6 +109,8 @@ function App (): JSX.Element {
           <Route path="/" exact component={ Dashboard } />
           <Route path="/seafreight" component={ SeaFreight } />
           <Route path="/aircargo" component={ AirCargo } />
+          <Route path="/customers" component={ Customers } />
+          <Route path="/customer-groups" component={ CustomerGroups } />
         </Switch>
       </div>
     </Router>
