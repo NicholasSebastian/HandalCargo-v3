@@ -185,10 +185,7 @@ body {
 
           &:hover {
             cursor: pointer;
-
-            > img {
-              background-color: $sidenav-hover-color;
-            }
+            background-color: $sidenav-hover-color;
 
             ~ span {
               display: block;
