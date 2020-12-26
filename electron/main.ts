@@ -9,6 +9,8 @@ import '@babel/polyfill'
 import * as path from 'path'
 import * as url from 'url'
 
+const DB_PING_INTERVAL = 60000
+
 let mainWindow: Electron.BrowserWindow | null
 let connection: mariadb.Connection
 
@@ -16,7 +18,7 @@ app.on('ready', () => {
   mainWindow = new BrowserWindow({
     width: 400,
     height: 300,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#f8f7fc',
     resizable: false,
     webPreferences: {
       nodeIntegration: true
@@ -46,23 +48,32 @@ ipcMain.on('login', async (event, username, password) => {
   mariadb.createConnection({
     host: '101.50.1.10',
     port: 3306,
-    database: 'handalcargo',
+    database: 'dhicom_handalcargo',
     user: `dhicom_${username}`,
     password
   })
     .then(newConnection => {
       mainWindow?.setSize(1280, 720)
+      mainWindow?.setMinimumSize(800, 500)
       mainWindow?.setResizable(true)
       mainWindow?.center()
       ipcMain.removeAllListeners('login')
+
       connection = newConnection
+      setInterval(() => {
+        console.log('Pinging the database server.')
+        connection.ping()
+      }, DB_PING_INTERVAL)
+
       event.reply('logged-in', 0)
     })
     .catch((error) => {
-      if (error.code === 'ER_ACCESS_DENIED_ERROR' || error.code === 'ER_DBACCESS_DENIED_ERROR') 
+      if (error.code === 'ER_ACCESS_DENIED_ERROR') 
         event.reply('logged-in', 1)
-      else if (error.code === 'ECONNREFUSED') 
+      else if (error.code === 'ER_DBACCESS_DENIED_ERROR')
         event.reply('logged-in', 2)
+      else if (error.code === 'ECONNREFUSED') 
+        event.reply('logged-in', 3)
       else 
         event.reply('logged-in', error.message)
     })

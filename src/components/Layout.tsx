@@ -1,8 +1,16 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable padded-blocks */
 /* eslint-disable no-trailing-spaces */
 import React, { useState } from 'react'
 import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { remote } from 'electron'
+
+import shippingIcon from '../assets/shipping.png'
+import masterIcon from '../assets/master.png'
+import referencesIcon from '../assets/references.png'
+import reportsIcon from '../assets/reports.png'
+import settingsIcon from '../assets/settings.png'
+import logoutIcon from '../assets/logoutandexit.png'
 
 import Dashboard from '../pages/Dashboard'
 import SeaFreight from '../pages/SeaFreight'
@@ -26,76 +34,67 @@ function App (): JSX.Element {
   const Sidenav = () => {
     const [selected, setSelected] = useState<number | null>(null)
 
+    const navElements = [
+      ['Sea Freight', 'Air Cargo', 'Invoice Entry', 'Payment'],
+      ['Customers', 'Staff'],
+      ['Customer Groups', 'Shippers', 'Routes', 'Handlers', 'Planes', 'Currencies', 'Product Details', 'Expeditions'],
+      ['Dashboard', 'Payroll'],
+      ['Staff Groups', 'Company Setup', 'Backup and Restore']
+    ]
+
+    function promptExit () {
+      dialog.showMessageBox({
+        title: 'Log Out and Exit',
+        message: 'Log Out and Exit?',
+        detail: 'This will close the application and its connection to the database.',
+        buttons: ['Log Out and Exit', 'Cancel']
+      }).then(({ response }) => {
+        if (response === 0) {
+          remote.getCurrentWindow().close()
+        }
+      })
+    }
+
     return (
       <nav id="sidenav">
         <div>
-          <button onClick={() => setSelected(selected === 0 ? null : 0)}>
-            Shipping
+          <button onClick={() => 
+            selected !== 0 ? setSelected(0) : setSelected(null)}>
+            <img src={shippingIcon} />
+            <span>Shipping</span>
           </button>
-          <div style={{ display: selected === 0 ? 'block' : 'none' }}>
-            <Link to="/seafreight">Sea Freight</Link>
-            <Link to="/aircargo">Air Cargo</Link>
-            <Link to="/">Invoice Entry</Link>
-            <Link to="/">Payment</Link>
-          </div>
+          <button onClick={() => 
+            selected !== 1 ? setSelected(1) : setSelected(null)}>
+            <img src={masterIcon} />
+            <span>Master</span>
+          </button>
+          <button onClick={() => 
+            selected !== 2 ? setSelected(2) : setSelected(null)}>
+            <img src={referencesIcon} />
+            <span>References</span>
+          </button>
+          <button onClick={() => 
+            selected !== 3 ? setSelected(3) : setSelected(null)}>
+            <img src={reportsIcon} />
+            <span>Reports</span>
+          </button>
+          <button onClick={() => 
+            selected !== 4 ? setSelected(4) : setSelected(null)}>
+            <img src={settingsIcon} />
+            <span>Settings</span>
+          </button>
+          <button onClick={promptExit}>
+            <img src={logoutIcon} />
+            <span>Log Out and Exit</span>
+          </button>
         </div>
         <div>
-          <button onClick={() => setSelected(selected === 1 ? null : 1)}>
-            Master
-          </button>
-          <div style={{ display: selected === 1 ? 'block' : 'none' }}>
-            <Link to="/customers">Customers</Link>
-            <Link to="/">Staff</Link>
-          </div>
+          {selected !== null && 
+          navElements[selected!].map(element => {
+            const link = element === 'Dashboard' ? '/' : element.toLowerCase().replace(' ', '-')
+            return <Link key={link} to={link}>{element}</Link>
+          })}
         </div>
-        <div>
-          <button onClick={() => setSelected(selected === 2 ? null : 2)}>
-            References
-          </button>
-          <div style={{ display: selected === 2 ? 'block' : 'none' }}>
-            <Link to="/customer-groups">Customer Groups</Link>
-            <Link to="/">Shippers</Link>
-            <Link to="/">Routes</Link>
-            <Link to="/">Handlers</Link>
-            <Link to="/">Planes</Link>
-            <Link to="/">Currencies</Link>
-            <Link to="/">Product Details</Link>
-            <Link to="/">Expeditions</Link>
-          </div>
-        </div>
-        <div>
-          <button onClick={() => setSelected(selected === 3 ? null : 3)}>
-            Reports
-          </button>
-          <div style={{ display: selected === 3 ? 'block' : 'none' }}>
-            <Link to="/">Dashboard</Link>
-            <Link to="/">Payroll</Link>
-          </div>
-        </div>
-        <div>
-          <button onClick={() => setSelected(selected === 4 ? null : 4)}>
-            Settings
-          </button>
-          <div style={{ display: selected === 4 ? 'block' : 'none' }}>
-            <Link to="/">Staff Groups</Link>
-            <Link to="/">Company Setup</Link>
-            <Link to="/">Backup and Restore</Link>
-          </div>
-        </div>
-        <button onClick={() => {
-          dialog.showMessageBox({
-            title: 'Log Out and Exit',
-            message: 'Log Out and Exit?',
-            detail: 'This will close the application and its connection to the database.',
-            buttons: ['Log Out and Exit', 'Cancel']
-          }).then(({ response }) => {
-            if (response === 0) {
-              remote.getCurrentWindow().close()
-            }
-          })
-        }}>
-          Log Out and Exit
-        </button>
       </nav>
     )
   }
@@ -107,8 +106,8 @@ function App (): JSX.Element {
         <Sidenav />
         <Switch>
           <Route path="/" exact component={ Dashboard } />
-          <Route path="/seafreight" component={ SeaFreight } />
-          <Route path="/aircargo" component={ AirCargo } />
+          <Route path="/sea-freight" component={ SeaFreight } />
+          <Route path="/air-cargo" component={ AirCargo } />
           <Route path="/customers" component={ Customers } />
           <Route path="/customer-groups" component={ CustomerGroups } />
         </Switch>

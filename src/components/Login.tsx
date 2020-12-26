@@ -24,6 +24,13 @@ function Login (): JSX.Element {
           })
           break
         case 2:
+          setView(<Auth/>)
+          dialog.showMessageBox({
+            message: 'Permission Denied',
+            detail: 'Your account does not have access to this database.'
+          })
+          break
+        case 3:
           dialog.showMessageBox({
             message: 'Connection Refused',
             detail: 'There was a problem connecting to the database server.'
