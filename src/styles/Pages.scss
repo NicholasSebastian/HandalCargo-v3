@@ -27,21 +27,30 @@ $ref-column-width: 240px;
     font-size: 20px;
   }
 
-  > div {
+  > div,
+  > button {
     margin: 10px 0;
-    display: flex;
     padding: 10px 20px;
     border-radius: 5px;
     box-shadow: 0 0 5px #cbc9ce;
+  }
+
+  > div {
+    display: flex;
 
     > input[type='text'] {
       border: none;
       padding: 0;
       font-size: 15px;
+      width: 240px;
 
       &:focus {
         outline: none;
       }
+    }
+
+    &:not(:last-child) > input[type='text']::placeholder {
+      color: #000000;
     }
 
     &:first-of-type {
@@ -58,14 +67,6 @@ $ref-column-width: 240px;
       background-color: #ffffff;
       position: relative;
 
-      > input[type='text'] {
-        width: 240px;
-
-        &::placeholder {
-          color: #000000;
-        }
-      }
-
       > div:last-child {
         position: absolute;
         top: 0;
@@ -79,13 +80,16 @@ $ref-column-width: 240px;
           border-radius: 5px;
           height: 70%;
           margin-left: 10px;
+          padding: 0 10px;
 
           &:first-child {
-            background-color: yellow;
+            background-color: #c7f5e0;
+            color: #5da177;
           }
 
           &:last-child {
-            background-color: red;
+            background-color: #fff5f6;
+            color: #ff2e2b;
           }
 
           &:hover {
@@ -97,6 +101,22 @@ $ref-column-width: 240px;
           }
         }
       }
+    }
+  }
+
+  > button {
+    display: block;
+    width: 100%;
+    border: none;
+    text-align: left;
+    font-size: 14px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:focus {
+      outline: none;
     }
   }
 }

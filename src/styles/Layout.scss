@@ -6,6 +6,7 @@ $sidenav-color: #4d5eab;
 $sidenav-hover-color: #3d4a7f;
 $sidenav-subcolor: #ffffff;
 $sidenav-fontsize: 15px;
+$sidenav-width: 50px;
 
 $on-white-button-color: #3e549d;
 $on-white-hover-color: #7c8dcb;
@@ -16,6 +17,7 @@ $on-white-hover-color: #7c8dcb;
 }
 
 * {
+  box-sizing: border-box;
   font-family: 'Montserrat';
   -webkit-user-drag: none;
 }
@@ -185,7 +187,7 @@ body {
         position: relative;
 
         > img {
-          width: 32px;
+          width: $sidenav-width;
           padding: 8px;
           border-radius: 5px;
 

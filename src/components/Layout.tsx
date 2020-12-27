@@ -20,12 +20,6 @@ import ContainerGroups from '../pages/ContainerGroups'
 
 const { dialog } = remote
 
-interface NavButtonProps {
-  headerName: string,
-  icon: string,
-  index: number
-}
-
 const App = (): JSX.Element => {
 
   const Header = () => {
@@ -61,6 +55,12 @@ const App = (): JSX.Element => {
       })
     }
 
+    interface NavButtonProps {
+      headerName: string,
+      icon: string,
+      index: number
+    }
+
     const NavButton = ({ index, icon, headerName }: NavButtonProps): JSX.Element => {
       return (
         <button onClick={() => 
@@ -75,10 +75,10 @@ const App = (): JSX.Element => {
       <nav id="sidenav">
         <div>
           <NavButton headerName='Shipping' icon={shippingIcon} index={0} />
-          <NavButton headerName='Master' icon={referencesIcon} index={1} />
-          <NavButton headerName='References' icon={reportsIcon} index={2} />
-          <NavButton headerName='Reports' icon={settingsIcon} index={3} />
-          <NavButton headerName='Settings' icon={logoutIcon} index={4} />
+          <NavButton headerName='Master' icon={masterIcon} index={1} />
+          <NavButton headerName='References' icon={referencesIcon} index={2} />
+          <NavButton headerName='Reports' icon={reportsIcon} index={3} />
+          <NavButton headerName='Settings' icon={settingsIcon} index={4} />
           <button onClick={promptExit}>
             <img src={logoutIcon} />
             <span>Log Out and Exit</span>
