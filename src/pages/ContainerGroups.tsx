@@ -54,6 +54,9 @@ const Row = ({ row, refreshView }: RowProps) => {
         // If ok then execute the query.
         if (response === 0) {
           ipcRenderer.sendSync('query', query)
+          setContainerCode('')
+          setContainerDesc('')
+          setSize('')
           refreshView()
         }
       })

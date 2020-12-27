@@ -10,8 +10,8 @@ const { dialog } = remote
 
 function Login (): JSX.Element {
   useEffect(() => {
-    ipcRenderer.once('login-success', () => {
-      setView(<App/>)
+    ipcRenderer.once('login-success', (event, username) => {
+      setView(<App username={username} />)
       ipcRenderer.removeAllListeners('login-failed')
     })
 

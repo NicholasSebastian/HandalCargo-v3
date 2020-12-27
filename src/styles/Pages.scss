@@ -1,16 +1,19 @@
-$title-fontsize: 18px;
+$title-fontsize: 20px;
 $table-header-color: #4d5eab;
 $ref-column-width: 240px;
 
-.table-page {
+.table-page,
+.ref-page {
   padding: 30px 20px;
 
-  > h1 {
-    font-size: $title-fontsize;
+  h1 {
     margin-top: 0;
     margin-bottom: 20px;
+    font-size: $title-fontsize;
   }
+}
 
+.table-page {
   > table {
     background-color: #ffffff;
     padding: 20px;
@@ -20,13 +23,6 @@ $ref-column-width: 240px;
 }
 
 .ref-page {
-  padding: 20px;
-
-  h1 {
-    margin-top: 0;
-    font-size: 20px;
-  }
-
   > div,
   > button {
     margin: 10px 0;

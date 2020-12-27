@@ -68,7 +68,7 @@ ipcMain.on('login', (event, username, password) => {
         connection.ping()
       }, DB_PING_INTERVAL)
 
-      event.reply('login-success')
+      event.reply('login-success', username)
     })
     .catch((error) => {
       event.reply('login-failed', error.code, error.message)

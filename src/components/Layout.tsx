@@ -20,13 +20,17 @@ import ContainerGroups from '../pages/ContainerGroups'
 
 const { dialog } = remote
 
-const App = (): JSX.Element => {
+interface AppProps {
+  username: string
+}
+
+const App = ({ username }: AppProps): JSX.Element => {
 
   const Header = () => {
     return (
       <header id="header">
         <h1>Handal Cargo</h1>
-        <button>username</button>
+        <button>{username}</button>
       </header>
     )
   }
@@ -39,7 +43,7 @@ const App = (): JSX.Element => {
       ['Customers', 'Staff'],
       ['Container Groups', 'Shippers', 'Routes', 'Handlers', 'Planes', 'Currencies', 'Product Details', 'Expeditions'],
       ['Dashboard', 'Payroll'],
-      ['Staff Groups', 'Company Setup', 'Backup and Restore']
+      ['Staff Groups', 'Company Setup', 'Backup and Restore', 'Shortcuts']
     ]
 
     function promptExit () {
