@@ -20,8 +20,14 @@ import ContainerGroups from '../pages/ContainerGroups'
 
 const { dialog } = remote
 
-function App (): JSX.Element {
-  
+interface NavButtonProps {
+  headerName: string,
+  icon: string,
+  index: number
+}
+
+const App = (): JSX.Element => {
+
   const Header = () => {
     return (
       <header id="header">
@@ -55,34 +61,24 @@ function App (): JSX.Element {
       })
     }
 
+    const NavButton = ({ index, icon, headerName }: NavButtonProps): JSX.Element => {
+      return (
+        <button onClick={() => 
+          selected !== index ? setSelected(index) : setSelected(null)}>
+          <img src={icon} />
+          <span>{headerName}</span>
+        </button>
+      )
+    }
+
     return (
       <nav id="sidenav">
         <div>
-          <button onClick={() => 
-            selected !== 0 ? setSelected(0) : setSelected(null)}>
-            <img src={shippingIcon} />
-            <span>Shipping</span>
-          </button>
-          <button onClick={() => 
-            selected !== 1 ? setSelected(1) : setSelected(null)}>
-            <img src={masterIcon} />
-            <span>Master</span>
-          </button>
-          <button onClick={() => 
-            selected !== 2 ? setSelected(2) : setSelected(null)}>
-            <img src={referencesIcon} />
-            <span>References</span>
-          </button>
-          <button onClick={() => 
-            selected !== 3 ? setSelected(3) : setSelected(null)}>
-            <img src={reportsIcon} />
-            <span>Reports</span>
-          </button>
-          <button onClick={() => 
-            selected !== 4 ? setSelected(4) : setSelected(null)}>
-            <img src={settingsIcon} />
-            <span>Settings</span>
-          </button>
+          <NavButton headerName='Shipping' icon={shippingIcon} index={0} />
+          <NavButton headerName='Master' icon={referencesIcon} index={1} />
+          <NavButton headerName='References' icon={reportsIcon} index={2} />
+          <NavButton headerName='Reports' icon={settingsIcon} index={3} />
+          <NavButton headerName='Settings' icon={logoutIcon} index={4} />
           <button onClick={promptExit}>
             <img src={logoutIcon} />
             <span>Log Out and Exit</span>
