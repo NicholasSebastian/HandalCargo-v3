@@ -16,7 +16,7 @@ import Dashboard from '../pages/Dashboard'
 import SeaFreight from '../pages/SeaFreight'
 import AirCargo from '../pages/AirCargo'
 import Customers from '../pages/Customers'
-import CustomerGroups from '../pages/CustomerGroups'
+import ContainerGroups from '../pages/ContainerGroups'
 
 const { dialog } = remote
 
@@ -37,7 +37,7 @@ function App (): JSX.Element {
     const navElements = [
       ['Sea Freight', 'Air Cargo', 'Invoice Entry', 'Payment'],
       ['Customers', 'Staff'],
-      ['Customer Groups', 'Shippers', 'Routes', 'Handlers', 'Planes', 'Currencies', 'Product Details', 'Expeditions'],
+      ['Container Groups', 'Shippers', 'Routes', 'Handlers', 'Planes', 'Currencies', 'Product Details', 'Expeditions'],
       ['Dashboard', 'Payroll'],
       ['Staff Groups', 'Company Setup', 'Backup and Restore']
     ]
@@ -109,7 +109,7 @@ function App (): JSX.Element {
           <Route path="/sea-freight" component={ SeaFreight } />
           <Route path="/air-cargo" component={ AirCargo } />
           <Route path="/customers" component={ Customers } />
-          <Route path="/customer-groups" component={ CustomerGroups } />
+          <Route path="/container-groups" component={ ContainerGroups } />
         </Switch>
       </div>
     </Router>

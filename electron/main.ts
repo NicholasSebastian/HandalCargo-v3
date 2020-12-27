@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable curly */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable quotes */
 /* eslint-disable no-unused-expressions */
-import { app, BrowserWindow, ipcMain } from 'electron'
+
+import { app, BrowserWindow, dialog, ipcMain } from 'electron'
 import mariadb from 'mariadb'
 
 import '@babel/polyfill'
@@ -18,8 +20,9 @@ app.on('ready', () => {
   mainWindow = new BrowserWindow({
     width: 400,
     height: 300,
-    backgroundColor: '#f8f7fc',
     resizable: false,
+    backgroundColor: '#f8f7fc',
+    icon: '../src/assets/icon.png',
     webPreferences: {
       nodeIntegration: true
     }
@@ -44,7 +47,7 @@ app.on('ready', () => {
 
 app.allowRendererProcessReuse = true
 
-ipcMain.on('login', async (event, username, password) => {
+ipcMain.on('login', (event, username, password) => {
   mariadb.createConnection({
     host: '101.50.1.10',
     port: 3306,
@@ -65,16 +68,23 @@ ipcMain.on('login', async (event, username, password) => {
         connection.ping()
       }, DB_PING_INTERVAL)
 
-      event.reply('logged-in', 0)
+      event.reply('login-success')
     })
     .catch((error) => {
-      if (error.code === 'ER_ACCESS_DENIED_ERROR') 
-        event.reply('logged-in', 1)
-      else if (error.code === 'ER_DBACCESS_DENIED_ERROR')
-        event.reply('logged-in', 2)
-      else if (error.code === 'ECONNREFUSED') 
-        event.reply('logged-in', 3)
-      else 
-        event.reply('logged-in', error.message)
+      event.reply('login-failed', error.code, error.message)
+    })
+})
+
+ipcMain.on('query', (event, query) => {
+  connection.query(query)
+    .then((data: Array<any>) => {
+      event.returnValue = data
+    })
+    .catch((error) => {
+      dialog.showMessageBox({
+        message: 'Query failed',
+        detail: error.message
+      })
+      event.returnValue = null
     })
 })

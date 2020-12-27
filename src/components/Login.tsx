@@ -10,27 +10,28 @@ const { dialog } = remote
 
 function Login (): JSX.Element {
   useEffect(() => {
-    ipcRenderer.on('logged-in', (event, status) => {
-      switch (status) {
-        case 0:
-          setView(<App/>)
-          ipcRenderer.removeAllListeners('logged-in')
-          break
-        case 1:
+    ipcRenderer.once('login-success', () => {
+      setView(<App/>)
+      ipcRenderer.removeAllListeners('login-failed')
+    })
+
+    ipcRenderer.on('login-failed', (event, error, message) => {
+      switch (error) {
+        case 'ER_ACCESS_DENIED_ERROR':
           setView(<Auth/>)
           dialog.showMessageBox({
             message: 'Invalid Login credentials',
             detail: 'Incorrect username or password.'
           })
           break
-        case 2:
+        case 'ER_DBACCESS_DENIED_ERROR':
           setView(<Auth/>)
           dialog.showMessageBox({
             message: 'Permission Denied',
             detail: 'Your account does not have access to this database.'
           })
           break
-        case 3:
+        case 'ECONNREFUSED':
           dialog.showMessageBox({
             message: 'Connection Refused',
             detail: 'There was a problem connecting to the database server.'
@@ -40,7 +41,7 @@ function Login (): JSX.Element {
         default:
           dialog.showMessageBox({
             message: 'Fatal Error occured',
-            detail: status
+            detail: message
           })
           remote.getCurrentWindow().close()
           break

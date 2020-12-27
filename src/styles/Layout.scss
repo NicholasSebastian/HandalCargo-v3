@@ -1,6 +1,6 @@
 $header-color: #3e549d;
-$header-height: 40px;
-$header-fontsize: 18px;
+$header-height: 50px;
+$header-fontsize: 20px;
 
 $sidenav-color: #4d5eab;
 $sidenav-hover-color: #3d4a7f;
@@ -10,11 +10,13 @@ $sidenav-fontsize: 15px;
 $on-white-button-color: #3e549d;
 $on-white-hover-color: #7c8dcb;
 
-$blue: #0068c0;
-$blue-hover: #005ea8;
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../assets/fonts/Montserrat-Medium.ttf') format('truetype');
+}
 
 * {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Montserrat';
   -webkit-user-drag: none;
 }
 
@@ -72,6 +74,10 @@ body {
         cursor: pointer;
         background-color: $on-white-hover-color;
       }
+
+      &:focus {
+        outline: none;
+      }
     }
   }
 }
@@ -91,7 +97,7 @@ body {
   height: 80px;
 
   > div {
-    background-color: $blue;
+    background-color: $on-white-button-color;
     display: inline-block;
     position: absolute;
     left: 8px;
@@ -236,7 +242,7 @@ body {
       &:last-child {
         background-color: $sidenav-subcolor;
         padding-top: 10px;
-        box-shadow: 1px 2px 5px #dbdadd;
+        box-shadow: 2px 2px 5px #dbdadd;
       }
     }
   }

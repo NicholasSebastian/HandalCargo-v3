@@ -2,7 +2,8 @@ import React from 'react'
 import { render } from 'react-dom'
 
 import Login from './components/Login'
-import './Styles.scss'
+import './styles/Layout.scss'
+import './styles/Pages.scss'
 
 const mainElement = document.createElement('div')
 mainElement.setAttribute('id', 'root')

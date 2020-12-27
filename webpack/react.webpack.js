@@ -25,15 +25,16 @@ module.exports = {
         use: [
           "style-loader",
           "css-loader",
+          "resolve-url-loader",
           "sass-loader",
         ],
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif|ttf)$/i,
         use: {
           loader: 'file-loader',
         }
-      },
+      }
     ]
   },
   devServer: {
