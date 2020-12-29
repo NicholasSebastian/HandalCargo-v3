@@ -1,15 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable curly */
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable quotes */
 /* eslint-disable no-unused-expressions */
-
 import { app, BrowserWindow, dialog, ipcMain } from 'electron'
 import mariadb from 'mariadb'
 
 import '@babel/polyfill'
 import * as path from 'path'
 import * as url from 'url'
+
+const loginWindowSize = { width: 400, height: 300 }
+const windowSize = { width: 1280, height: 720, minWidth: 1100, minHeight: 600 }
 
 const DB_PING_INTERVAL = 60000
 
@@ -18,8 +17,8 @@ let connection: mariadb.Connection
 
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
-    width: 400,
-    height: 300,
+    width: loginWindowSize.width,
+    height: loginWindowSize.height,
     resizable: false,
     backgroundColor: '#f8f7fc',
     icon: '../src/assets/icon.png',
@@ -41,11 +40,25 @@ app.on('ready', () => {
   }
 
   mainWindow.on('closed', () => {
+    connection?.end()
     mainWindow = null
   })
 })
 
 app.allowRendererProcessReuse = true
+
+ipcMain.on('logout', () => {
+  dialog.showMessageBox({
+    title: 'Log Out and Exit',
+    message: 'Log Out and Exit?',
+    detail: 'This will close the application and its connection to the database.',
+    buttons: ['Log Out and Exit', 'Cancel']
+  }).then(({ response }) => {
+    if (response === 0) {
+      mainWindow?.close()
+    }
+  })
+})
 
 ipcMain.on('login', (event, username, password) => {
   mariadb.createConnection({
@@ -56,13 +69,14 @@ ipcMain.on('login', (event, username, password) => {
     password
   })
     .then(newConnection => {
-      mainWindow?.setSize(1280, 720)
-      mainWindow?.setMinimumSize(800, 500)
+      mainWindow?.setSize(windowSize.width, windowSize.height)
+      mainWindow?.setMinimumSize(windowSize.minWidth, windowSize.minHeight)
       mainWindow?.setResizable(true)
       mainWindow?.center()
       ipcMain.removeAllListeners('login')
 
       connection = newConnection
+      connection.on('error', error => console.log(error))
       setInterval(() => {
         console.log('Pinging the database server.')
         connection.ping()

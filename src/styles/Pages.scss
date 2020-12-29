@@ -5,6 +5,7 @@ $ref-column-width: 240px;
 .table-page,
 .ref-page {
   padding: 30px 20px;
+  overflow: scroll;
 
   h1 {
     margin-top: 0;
@@ -34,29 +35,40 @@ $ref-column-width: 240px;
   > div {
     display: flex;
 
-    > input[type='text'] {
-      border: none;
-      padding: 0;
-      font-size: 15px;
-      width: 240px;
-
-      &:focus {
-        outline: none;
-      }
-    }
-
-    &:not(:last-child) > input[type='text']::placeholder {
-      color: #000000;
-    }
-
+    // Headers
     &:first-of-type {
       background-color: $table-header-color;
       color: #ffffff;
       font-size: 14px;
 
       > div {
-        width: 240px;
+        width: 200px;
+        min-width: 200px;
       }
+    }
+
+    // Fields
+    > input[type='text'] {
+      border: none;
+      padding: 0;
+      font-size: 15px;
+      width: 160px;
+      min-width: 160px;
+      margin-right: 40px;
+      border-bottom: 1px solid transparent;
+
+      &:focus {
+        outline: none;
+        border-bottom: 1px solid #cbc9ce;
+
+        &::placeholder {
+          color: #cbc9ce !important;
+        }
+      }
+    }
+
+    &:not(:last-child) > input[type='text']::placeholder {
+      color: #000000;
     }
 
     &:not(:first-of-type) {
