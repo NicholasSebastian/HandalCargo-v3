@@ -7,7 +7,8 @@ import Sidenav from '../components/Sidenav'
 import Dashboard from '../pages/Dashboard'
 import SeaFreight from '../pages/Shipping/SeaFreight'
 import AirCargo from '../pages/Shipping/AirCargo'
-import Customers from '../pages/Master/Customers'
+import Customers from '../pages/Shipping/Customers'
+
 import ContainerGroups from '../pages/References/ContainerGroups'
 import Carriers from '../pages/References/Carriers'
 import Routes from '../pages/References/Route'
@@ -16,6 +17,9 @@ import Planes from '../pages/References/Planes'
 import Currencies from '../pages/References/Currencies'
 import ProductDetails from '../pages/References/ProductDetails'
 import Expeditions from '../pages/References/Expeditions'
+
+import AccessLevels from '../pages/Master/AccessLevels'
+import BackupAndRestore from '../pages/Master/Backup'
 
 interface AppProps {
   username: string
@@ -40,6 +44,8 @@ const App = ({ username }: AppProps): JSX.Element => {
           <Route path="/currencies" component={ Currencies } />
           <Route path="/product-details" component={ ProductDetails } />
           <Route path="/expeditions" component={ Expeditions } />
+          <Route path="/access-levels" component={ AccessLevels } />
+          <Route path="/backup-and-restore" component={ BackupAndRestore } />
         </Switch>
       </div>
     </Router>

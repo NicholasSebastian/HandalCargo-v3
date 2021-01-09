@@ -29,7 +29,10 @@ const AddRow = ({ tableName, fields, refresh }: AddRowProps): JSX.Element => {
   useEffect(() => setAddMode(false), [])
 
   const RowAdd = (): JSX.Element =>
-    <button onClick={() => setAddMode(true)}>+ Add new record</button>
+    <button className='secondary shadow' 
+      onClick={() => setAddMode(true)}>
+        + Add new record
+    </button>
 
   const RowFields = (): JSX.Element => {
     const [rowFields, setRowFields] = useState(new Array(fields.length).fill(''))
@@ -42,7 +45,7 @@ const AddRow = ({ tableName, fields, refresh }: AddRowProps): JSX.Element => {
     }
 
     return (
-      <div>
+      <div className='secondary shadow'>
         {fields.map((field, i) => 
           <input key={i} type="text" placeholder={field}
             value={rowFields[i]} onChange={e => {
@@ -117,7 +120,7 @@ const Row = ({ tableName, row, refresh }: RowProps): JSX.Element => {
   }
 
   return (
-    <div>
+    <div className='secondary shadow'>
       {rowFieldValues.map((field, i) => 
         <input key={i} type="text" placeholder={field}
           value={rowFields[i]} onChange={e => {
@@ -148,7 +151,7 @@ const RefPageTemplate = ({ tableName, title, columnNames }: TemplateProps): JSX.
   return (
     <div className='ref-page'>
       <h1>{title}</h1>
-      <div>
+      <div className='accent2 shadow'>
         {columnNames.map((columnName, i) => 
           <div key={i}>{columnName}</div>
         )}

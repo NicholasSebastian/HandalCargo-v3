@@ -1,17 +1,9 @@
-$header-color: #3e549d;
 $header-height: 50px;
-$header-fontsize: 20px;
-
-$sidenav-color: #4d5eab;
-$sidenav-hover-color: #3d4a7f;
-$sidenav-subcolor: #ffffff;
-$sidenav-fontsize: 15px;
 $sidenav-width: 50px;
 
-$floaty-color: #4d5eab;
-
-$on-white-button-color: #3e549d;
-$on-white-hover-color: #7c8dcb;
+$header-fontsize: 20px;
+$sidenav-fontsize: 15px;
+$title-fontsize: 20px;
 
 @font-face {
   font-family: 'Montserrat';
@@ -30,42 +22,46 @@ body {
 }
 
 #login {
+  display: grid;
+  grid-template-rows: 50px 1fr;
+  width: 100vw;
+  height: 100vh;
+
   > h1 {
-    background-color: $header-color;
-    color: #ffffff;
     font-size: 22px;
-    margin-top: 0;
-    margin-bottom: 30px;
-    padding: 12px 15px;
+    margin: 0;
+    padding-top: 12px;
+    padding-left: 15px;
   }
 
   > div {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 
     > input[type='text'],
     > input[type='password'] {
-      background-color: #eee;
-      border: none;
+      background: transparent;
+      border: 1px solid #888888;
       border-radius: 4px;
       width: 260px;
       font-size: 13px;
+      color: inherit;
 
       margin: 5px 0;
       padding: 10px;
 
       &:focus {
-        outline: 1px solid $on-white-button-color;
+        outline: none;
       }
     }
 
     > button {
-      background-color: $on-white-button-color;
       border: none;
+      border-radius: 5px;
       width: 280px;
 
-      color: #ffffff;
       font-size: 13px;
       font-weight: 600;
       text-transform: uppercase;
@@ -76,7 +72,6 @@ body {
 
       &:hover {
         cursor: pointer;
-        background-color: $on-white-hover-color;
       }
 
       &:focus {
@@ -101,7 +96,6 @@ body {
   height: 80px;
 
   > div {
-    background-color: $on-white-button-color;
     display: inline-block;
     position: absolute;
     left: 8px;
@@ -144,8 +138,18 @@ body {
   grid-template-rows: $header-height 1fr;
   grid-template-columns: auto 1fr;
 
+  > div:last-child {
+    padding: 30px 20px;
+    overflow: scroll;
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: $title-fontsize;
+    }
+  }
+
   > #header {
-    background-color: $header-color;
     grid-column-start: 1;
     grid-column-end: 3;
     display: flex;
@@ -155,7 +159,6 @@ body {
     padding-right: 10px;
 
     > h1 {
-      color: #ffffff;
       font-size: $header-fontsize;
       margin: 0;
       user-select: none;
@@ -166,8 +169,6 @@ body {
       align-items: center;
 
       > button {
-        background-color: transparent;
-        color: #ffffff;
         height: 40px;
         border-radius: 5px;
         border: none;
@@ -179,12 +180,7 @@ body {
         margin-left: 5px;
 
         &:hover {
-          background-color: $sidenav-hover-color;
           cursor: pointer;
-
-          > span {
-            display: block;
-          }
         }
       }
 
@@ -193,13 +189,18 @@ body {
         width: 40px;
         position: relative;
 
+        &:hover {
+          > span {
+            display: block;
+          }
+        }
+
         > img {
           width: 100%;
         }
 
         > span {
           display: none;
-          background-color: $sidenav-hover-color;
           border-radius: 5px;
           padding: 8px 16px;
           font-size: 12px;
@@ -221,7 +222,6 @@ body {
 
         > div {
           display: none;
-          background-color: #ffffff;
           position: absolute;
           top: 40px;
           right: 0;
@@ -229,11 +229,10 @@ body {
           padding: 10px;
           border-radius: 5px;
           width: 200px;
-          box-shadow: 0 0 5px #727075;
 
           > button {
             background-color: transparent;
-            color: #000000;
+            color: inherit;
             display: block;
             width: 100%;
             padding: 10px 0;
@@ -244,8 +243,6 @@ body {
 
             &:hover {
               cursor: pointer;
-              background-color: $on-white-hover-color;
-              color: #ffffff;
             }
 
             &:focus {
@@ -275,7 +272,6 @@ body {
         > button:first-child {
           background: none;
           border: none;
-          color: #ffffff;
           font-size: 20px;
           position: absolute;
           top: 10px;
@@ -295,13 +291,11 @@ body {
   }
 
   > #sidenav {
-    background-color: $sidenav-color;
     display: flex;
 
     > div {
       button {
         background-color: transparent;
-        color: #ffffff;
         border: none;
         display: block;
         margin: 5px 0;
@@ -314,7 +308,6 @@ body {
 
           &:hover {
             cursor: pointer;
-            background-color: $sidenav-hover-color;
 
             ~ span {
               display: block;
@@ -324,7 +317,6 @@ body {
 
         > span {
           display: none;
-          background-color: $sidenav-hover-color;
           border-radius: 5px;
           padding: 8px 16px;
           white-space: nowrap;
@@ -342,7 +334,7 @@ body {
       }
 
       > a {
-        color: #111111;
+        color: inherit;
         font-size: $sidenav-fontsize;
         text-decoration: none;
         display: block;
@@ -353,33 +345,25 @@ body {
 
         &:hover {
           cursor: pointer;
-          background-color: $on-white-hover-color;
-          color: #ffffff;
         }
       }
 
       &:first-child {
-        background-color: $sidenav-color;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
       }
 
       &:last-child {
-        background-color: $sidenav-subcolor;
         padding-top: 10px;
-        box-shadow: 2px 2px 5px #dbdadd;
       }
     }
   }
 
   #notes {
-    background-color: $floaty-color;
     border-radius: 5px;
-    box-shadow: 0 0 10px #727075;
 
     > ul {
-      color: #ffffff;
       margin: 0;
       padding: 20px;
       list-style: none;
@@ -391,28 +375,22 @@ body {
   }
 
   #calculator {
-    background-color: $floaty-color;
     border-radius: 5px;
-    box-shadow: 0 0 10px #727075;
     width: 240px;
     height: 300px;
 
     // Temporary; in progress.
-    color: #fff;
     text-align: center;
     vertical-align: middle;
     line-height: 300px;
   }
 
   #messages {
-    background-color: $floaty-color;
     border-radius: 5px;
-    box-shadow: 0 0 10px #727075;
     width: 240px;
     height: 400px;
 
-    // Temporary; in progress.
-    color: #fff;
+    // Temporary; in progress.\
     text-align: center;
     vertical-align: middle;
     line-height: 400px;

@@ -7,7 +7,7 @@ interface CalculatorProps {
 
 const Calculator = ({ close }: CalculatorProps): JSX.Element => {
   return (
-    <div id="calculator">
+    <div id="calculator" className='accent1 shadow'>
       <button onClick={() => close()}>✕</button>
       Feature In Progress
     </div>

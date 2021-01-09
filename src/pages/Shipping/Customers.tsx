@@ -6,7 +6,7 @@ function Customers (): JSX.Element {
   return (
     <div className='table-page'>
       <h1>Customers</h1>
-      <table>
+      <table className='secondary shadow'>
         <thead>
           <tr>
             {columns.map((col, i) => <th key={i}>{col}</th>)}

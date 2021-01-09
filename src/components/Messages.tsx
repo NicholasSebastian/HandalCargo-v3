@@ -7,7 +7,7 @@ interface MessagesProps {
 
 const Messages = ({ close }: MessagesProps): JSX.Element => {
   return (
-    <div id="messages">
+    <div id="messages" className='accent1 shadow'>
       <button onClick={() => close()}>✕</button>
       Feature In Progress
     </div>

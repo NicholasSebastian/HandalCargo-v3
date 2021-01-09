@@ -1,0 +1,69 @@
+#Light {
+    background-color: #f8f7fc;
+    color: #000000;
+
+    .secondary {
+        background-color: #ffffff;
+        color: #000000;
+    }
+    .accent1 { 
+        background-color: #3e549d; 
+        color: #ffffff;
+    }
+    .accent2 {
+        background-color: #4d5eab;
+        color: #ffffff;
+    }
+    .accent3 {
+        background-color: #3d4a7f;
+        color: #ffffff;
+    }
+    .hover-light:hover {
+        background-color: #7c8dcb !important;
+        color: #ffffff !important;
+    }
+    .hover-dark:hover {
+        background-color: #3d4a7f !important;
+        color: #ffffff !important;
+    }
+    .shadow {
+        box-shadow: 0 0 5px #727075;
+    }
+}
+
+#Dark {
+    background-color: #011f38;
+    color: #ffffff;
+
+    .secondary {
+        background-color: #1d597c;
+        color: #ffffff;
+    }
+    .accent1 { 
+        background-color: #013a63; 
+        color: #ffffff;
+    }
+    .accent2 {
+        background-color: #01497c;
+        color: #ffffff;
+    }
+    .accent3 {
+        background-color: #012a4a;
+        color: #ffffff;
+    }
+    .hover-light:hover {
+        background-color: #2a6f97 !important;
+        color: #ffffff !important;
+    }
+    .hover-dark:hover {
+        background-color: #012a4a !important;
+        color: #ffffff !important;
+    }
+    .shadow {
+        box-shadow: 2px 2px 5px #000000;
+    }
+
+    input::placeholder {
+        color: #ffffff;
+    }
+}
